@@ -15,3 +15,5 @@ stage('Build') {
 		  image = docker.build("francotruffa1/pipeline")
       }
    }
+
+}
