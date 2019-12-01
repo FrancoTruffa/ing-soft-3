@@ -16,4 +16,16 @@ stage('Build') {
       }
    }
 
+stage('SonarCloud'){
+  withEnv(["MVN_HOME=$mvnHome"]){
+  sh 'cd payroll/server && "$MVN_HOME/bin/mvn" verify sonar:sonar \
+  -Dsonar.projectKey=FrancoTruffa_ing-soft-3 \
+  -Dsonar.organization=francotruffa \
+  -Dsonar.host.url=https://sonarcloud.io \
+  -Dsonar.login=8a7625c7b1e1722f308b5b9f322d2369fa42f0b7 \
+  -Dmaven.test.failure.ignore=true'
+  }
+  
+}
+
 }
