@@ -45,13 +45,13 @@ stage('Pusheando Imagen a Heroku'){
 
 stage('Integration test'){
       sleep 20
-      sh 'cd payroll/server/src/test/payroll-test && npx codeceptjs run --steps --reporter mocha-multi'
+      sh 'cd payroll/server/src/test/java/payroll-test && npx codeceptjs run --steps --reporter mocha-multi'
    }
 
 
       stage('Results') {
       archiveArtifacts 'payroll/server/target/*.jar'
-      archiveArtifacts 'payroll/server/src/test/payroll-test/output/result.xml'
+      archiveArtifacts 'payroll/server/src/test/java/payroll-test/output/result.xml'
       junit '*/target/surefire-reports/TEST-.xml'
       archiveArtifacts 'payroll/server/target/surefire-reports/*.xml'
 
