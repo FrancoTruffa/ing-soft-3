@@ -16,18 +16,16 @@ stage('Build') {
       }
    }
 
-// stage('SonarCloud'){
-//   withEnv(["MVN_HOME=$mvnHome"]){
-//   sh 'cd payroll/server && "$MVN_HOME/bin/mvn" verify sonar:sonar \
-//   -Dsonar.projectKey=FrancoTruffa_ing-soft-3 \
-//   -Dsonar.organization=francotruffa \
-//   -Dsonar.host.url=https://sonarcloud.io \
-//   -Dsonar.login=8a7625c7b1e1722f308b5b9f322d2369fa42f0b7 \
-//   -Dmaven.test.failure.ignore=true'
-//   }
-
-  
-// }
+stage('SonarCloud'){
+  withEnv(["MVN_HOME=$mvnHome"]){
+  sh 'cd payroll/server && "$MVN_HOME/bin/mvn" verify sonar:sonar \
+  -Dsonar.projectKey=FrancoTruffa_ing-soft-3 \
+  -Dsonar.organization=francotruffa \
+  -Dsonar.host.url=https://sonarcloud.io \
+  -Dsonar.login=8a7625c7b1e1722f308b5b9f322d2369fa42f0b7 \
+  -Dmaven.test.failure.ignore=true'
+  }
+}
 
 stage('Pusheando Imagen a Docker') {
     docker.withRegistry('', 'dockerhub'){
@@ -44,5 +42,19 @@ stage('Pusheando Imagen a Heroku'){
      sh 'heroku container:release web --app=hidden-hamlet-79766'
     }
 }
+
+stage('Integration test'){
+      sleep 20
+      sh 'cd payroll/server/src/test/payroll-test && npx codeceptjs run --steps --reporter mocha-multi'
+   }
+
+
+      stage('Results') {
+      archiveArtifacts 'payroll/server/target/*.jar'
+      archiveArtifacts 'payroll/server/src/test/payroll-test/output/result.xml'
+      junit '*/target/surefire-reports/TEST-.xml'
+      archiveArtifacts 'payroll/server/target/surefire-reports/*.xml'
+
+   }
 
 }

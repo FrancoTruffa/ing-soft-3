@@ -3,7 +3,7 @@ exports.config = {
 	output: "./output",
 	helpers: {
 		REST: {
-			endpoint: "http://localhost:8080",
+      endpoint: "https://hidden-hamlet-79766.herokuapp.com/",
 			onRequest: () => {
 			}
 		}
