@@ -35,6 +35,14 @@ stage('Pusheando Imagen a Docker') {
     }
 }
 
-// stage('Pusheando Imagen a Heroku'){}
+stage('Pusheando Imagen a Heroku'){
+    withCredentials([usernamePassword(credentialsId: 'herokuCredentials', passwordVariable: 'password',
+      usernameVariable: 'user')]){
+     sh 'docker login --username=_ --password=${password} registry.heroku.com'
+     sh 'docker tag francotruffa1/pipeline registry.heroku.com/hidden-hamlet-79766/web'
+     sh 'docker push registry.heroku.com/hidden-hamlet-79766/web'
+     sh 'heroku container:release web --app=hidden-hamlet-79766'
+      }
+}
 
 }
