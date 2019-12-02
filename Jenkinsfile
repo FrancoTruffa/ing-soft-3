@@ -12,7 +12,7 @@ node {
 stage('Build') {
       withEnv(["MVN_HOME=$mvnHome"]) {
         sh 'cd payroll/server && "$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean package'
-		  image = docker.build("francotruffa1/pipeline")
+		image = docker.build("francotruffa1/pipeline")
       }
    }
 
@@ -29,7 +29,7 @@ stage('Build') {
   
 // }
 
-stage('Pusheando Imagen a Docker'){
+stage('Pusheando Imagen a Docker') {
     docker.withRegistry('', 'dockerhub'){
         image.push()
     }
