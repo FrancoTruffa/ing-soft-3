@@ -16,37 +16,37 @@ stage('Build') {
       }
    }
 
-// stage('SonarCloud'){
-//   withEnv(["MVN_HOME=$mvnHome"]){
-//   sh 'cd payroll/server && "$MVN_HOME/bin/mvn" verify sonar:sonar \
-//   -Dsonar.projectKey=FrancoTruffa_ing-soft-3 \
-//   -Dsonar.organization=francotruffa \
-//   -Dsonar.host.url=https://sonarcloud.io \
-//   -Dsonar.login=8a7625c7b1e1722f308b5b9f322d2369fa42f0b7 \
-//   -Dmaven.test.failure.ignore=true'
-//   }
-// }
+stage('SonarCloud'){
+  withEnv(["MVN_HOME=$mvnHome"]){
+  sh 'cd payroll/server && "$MVN_HOME/bin/mvn" verify sonar:sonar \
+  -Dsonar.projectKey=FrancoTruffa_ing-soft-3 \
+  -Dsonar.organization=francotruffa \
+  -Dsonar.host.url=https://sonarcloud.io \
+  -Dsonar.login=8a7625c7b1e1722f308b5b9f322d2369fa42f0b7 \
+  -Dmaven.test.failure.ignore=true'
+  }
+}
 
-// stage('Pusheando Imagen a Docker') {
-//     docker.withRegistry('', 'dockerhub'){
-//         image.push()
-//     }
-// }
+stage('Pusheando Imagen a Docker') {
+    docker.withRegistry('', 'dockerhub'){
+        image.push()
+    }
+}
 
-// stage('Pusheando Imagen a Heroku'){
-//     withCredentials([usernamePassword(credentialsId: 'herokuCredentials', passwordVariable: 'password',
-//     usernameVariable: 'user')]){
-//      sh 'docker login --username=_ --password=${password} registry.heroku.com'
-//      sh 'docker tag francotruffa1/pipeline registry.heroku.com/hidden-hamlet-79766/web'
-//      sh 'docker push registry.heroku.com/hidden-hamlet-79766/web'
-//      sh 'heroku container:release web --app=hidden-hamlet-79766'
-//     }
-// }
+stage('Pusheando Imagen a Heroku'){
+    withCredentials([usernamePassword(credentialsId: 'herokuCredentials', passwordVariable: 'password',
+    usernameVariable: 'user')]){
+     sh 'docker login --username=_ --password=${password} registry.heroku.com'
+     sh 'docker tag francotruffa1/pipeline registry.heroku.com/hidden-hamlet-79766/web'
+     sh 'docker push registry.heroku.com/hidden-hamlet-79766/web'
+     sh 'heroku container:release web --app=hidden-hamlet-79766'
+    }
+}
 
-// stage('Integration test'){
-//       sleep 20
-//       sh 'cd payroll/server/src/test/java/payroll-test && npx codeceptjs run --steps --reporter mocha-multi'
-//    }
+stage('Integration test'){
+      sleep 20
+      sh 'cd payroll/server/src/test/java/payroll-test && npx codeceptjs run --steps --reporter mocha-multi'
+   }
 
 
 stage('Results') {
