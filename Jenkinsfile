@@ -52,8 +52,8 @@ stage('Build') {
 stage('Results') {
       archiveArtifacts 'payroll/server/target/*.jar'
       archiveArtifacts 'payroll/server/src/test/java/payroll-test/output/result.xml'
-      // junit '**/target/surefire-reports/TEST-*.xml'
-      // archiveArtifacts 'payroll/server/target/surefire-reports/*.xml'
+      junit '**/target/surefire-reports/TEST-*.xml'
+      archiveArtifacts 'payroll/server/target/surefire-reports/*.xml'
 
    }
 
