@@ -44,7 +44,7 @@ stage('Pusheando Imagen a Heroku'){
 }
 
 stage('Integration test'){
-      sleep 20
+      sleep 60
       sh 'cd payroll/server/src/test/java/payroll-test && npx codeceptjs run --steps --reporter mocha-multi'
    }
 
