@@ -53,7 +53,7 @@ stage('Integration test'){
 
 stage('Results') {
       archiveArtifacts 'payroll/server/target/*.jar'
-      archiveArtifacts 'payroll/server/src/test/java/payroll-test/output/result.xml'
+      junit 'payroll/server/src/test/java/payroll-test/output/result.xml'
       junit '**/target/surefire-reports/TEST-*.xml'
       archiveArtifacts 'payroll/server/target/surefire-reports/*.xml'
 
