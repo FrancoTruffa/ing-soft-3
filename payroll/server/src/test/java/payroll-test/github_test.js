@@ -3,6 +3,8 @@ const {I} = inject();
 
 Feature('Payroll');
 
+// estos son los test de integracion y los estoy corriendo contra heroku
+
 Scenario('Verificar a successful call', async () => {
 	const res = await I.sendGetRequest('/employees');
 	expect(res.status).to.eql(200);
