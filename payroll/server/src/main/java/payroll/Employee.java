@@ -27,6 +27,10 @@ class Employee {
 		return this.firstName + " " + this.lastName;
 	}
 
+	public String getLastName() {
+		return this.lastName;
+	}
+
 	public void setName(String name) {
 		String[] parts =name.split(" ");
 		this.firstName = parts[0];

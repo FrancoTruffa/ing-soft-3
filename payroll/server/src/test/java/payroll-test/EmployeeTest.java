@@ -12,4 +12,9 @@ public class EmployeeTest {
     	assertEquals(franco.getName(), "Franco Truffa");
     }
 
+    @Test
+    public void TestLastName() {
+    	Employee profesor = new Employee("Alexis", "Ferrucci", "trabajo");
+    	assertEquals(profesor.getLastName(), "Ferrucci");
+    }
 }
